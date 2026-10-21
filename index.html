@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Control de Mantenimiento Eléctrico</title>
+<style>
+:root{--bg:#f4f6f8;--c:#fff;--t:#1d2430;--m:#667085;--b:#e1e5ea;--p:#1f6feb;--o:#d9680b;--g:#12805c;--r:#c62828;--h:#eef1f5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#12161c;--c:#1b212a;--t:#e8ecf1;--m:#97a1b0;--b:#2c3541;--p:#5a9bff;--o:#f0903a;--g:#3cc79a;--r:#ff6b6b;--h:#232b36}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#12161c;--c:#1b212a;--t:#e8ecf1;--m:#97a1b0;--b:#2c3541;--p:#5a9bff;--o:#f0903a;--g:#3cc79a;--r:#ff6b6b;--h:#232b36}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t);font:14px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 16px;background:var(--c);border-bottom:1px solid var(--b);flex-wrap:wrap}
+h1{font-size:17px;margin:0}main{padding:14px 16px;max-width:1200px;margin:auto}
+nav{display:flex;gap:4px;overflow-x:auto;padding:8px 16px 0;background:var(--c);border-bottom:1px solid var(--b)}
+nav button{border:0;background:none;color:var(--m);padding:9px 14px;cursor:pointer;font:inherit;border-bottom:3px solid transparent;white-space:nowrap}
+nav button.on{color:var(--p);border-color:var(--p);font-weight:600}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-bottom:12px}
+input,select,textarea{font:inherit;color:var(--t);background:var(--c);border:1px solid var(--b);border-radius:6px;padding:7px 9px;max-width:100%}
+label{display:flex;flex-direction:column;font-size:12px;color:var(--m);gap:3px}label input,label select,label textarea{font-size:14px}
+button{font:inherit;cursor:pointer}.b1{background:var(--p);color:#fff;border:0;border-radius:6px;padding:8px 14px}.b2{background:var(--c);color:var(--t);border:1px solid var(--b);border-radius:6px;padding:8px 14px}
+.ic{background:none;border:1px solid var(--b);border-radius:5px;color:var(--t);padding:3px 8px;font-size:12px;margin-right:3px}.ic.r{color:var(--r)}
+.card{background:var(--c);border:1px solid var(--b);border-radius:8px;overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:760px}th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--b);vertical-align:top}th{background:var(--h);font-size:12px;color:var(--m)}
+.st{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}.st div{background:var(--c);border:1px solid var(--b);border-radius:8px;padding:10px 14px;min-width:130px}.st b{font-size:22px;display:block}.st span{color:var(--m);font-size:12px}
+.tg{font-size:11px;padding:2px 7px;border-radius:10px;background:var(--h);white-space:nowrap}.Preventivo{color:var(--p)}.Correctivo{color:var(--o)}.Completada{color:var(--g)}.Cancelada{color:var(--m)}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow:auto;z-index:50}
+.md{background:var(--c);border-radius:10px;padding:18px;width:620px;max-width:100%}.md h3{margin:0 0 12px}
+.g{display:grid;grid-template-columns:1fr 1fr;gap:10px}.g .w{grid-column:1/-1}.g textarea{min-height:70px}.ac{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+@media(max-width:560px){.g{grid-template-columns:1fr}}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(90px,1fr));gap:1px;background:var(--b);border:1px solid var(--b);min-width:640px}
+.cal>div{background:var(--c);min-height:84px;padding:4px}.cal .hd{min-height:0;background:var(--h);font-size:12px;color:var(--m);text-align:center}.cal .dn{font-size:12px;color:var(--m)}.cal .td{background:var(--h)}
+.chip{font-size:11px;border-left:3px solid;background:var(--h);padding:2px 5px;margin-top:3px;border-radius:3px;cursor:pointer}.chip.Preventivo{border-color:var(--p)}.chip.Correctivo{border-color:var(--o)}
+.pb{background:var(--h);border-radius:5px;height:8px;min-width:80px}.pb i{display:block;height:100%;border-radius:5px;background:var(--g)}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--t);color:var(--bg);padding:9px 16px;border-radius:8px;display:none;z-index:99}
+.mu{color:var(--m)}
+</style></head><body>
+<header><h1>⚡ Mantenimiento Eléctrico</h1><span id="who"></span></header>
+<nav id="nav"></nav><main id="app"></main><div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+const TIPOS=['Motor','Bomba','Lámpara','Compresor','Inyector','Tablero','Transformador','Variador','Generador','Otro'],
+ST=['Pendiente de material','Programada','En proceso','Completada','Cancelada'],PR=['Baja','Media','Alta','Urgente'];
+const SB_URL='https://ysomrydqmckakhchtzol.supabase.co',SB_KEY='sb_publishable_zoOiPMB-Mid6b7v1JZFNhw_p4Cx3v4I';
+const sb=supabase.createClient(SB_URL,SB_KEY);
+let db={sites:[],eq:[],tech:[],ot:[]},role=null,TAB='o',PD='',FL={o:{},p:{},c:{}};
+const AC=()=>role=='admin'||role=='campo',AD=()=>role=='admin';
+const TB={ot:'work_orders',eq:'equipment',tech:'technicians',sites:'sites'},nul=x=>x===''||x==null?null:x;
+const MAP={sites:{n:'name'},eq:{n:'name',tipo:'type',site:'site_id',nota:'note'},tech:{n:'name',esp:'specialty',tel:'phone'},ot:{tipo:'type',site:'site_id',eq:'equipment_id',tech:'technician_id',prio:'priority',st:'status',req:'requisition',oc:'purchase_order',fprog:'scheduled_date',fcierre:'closed_date',fcre:'created_date',desc:'description'}};
+function toRow(t,o){const r={id:o.id};for(const k in MAP[t])r[MAP[t][k]]=nul(o[k]);if(t=='tech')r.active=o.act!='Inactivo';return r}
+function fromRow(t,r){const o={id:r.id};for(const k in MAP[t])o[k]=r[MAP[t][k]]==null?'':r[MAP[t][k]];if(t=='tech')o.act=r.active?'Activo':'Inactivo';if(t=='ot')o.folio='OT-'+String(r.folio_num).padStart(4,'0');return o}
+async function put(t,o,isNew){const q=sb.from(TB[t]);const{data,error}=await(isNew?q.insert(toRow(t,o)):q.update(toRow(t,o)).eq('id',o.id)).select().single();if(error)throw error;return fromRow(t,data)}
+async function commit(t,id,o,v){const obj=id?Object.assign({},o,v):Object.assign({},v,{id:crypto.randomUUID()});try{const r=await put(t,obj,!id);if(id)Object.assign(o,r);else db[t].push(r);render()}catch(e){toast('No se guardó: '+(e.message||'error'));return false}}
+async function loadAll(){for(const t in TB){const{data,error}=await sb.from(TB[t]).select('*');if(error)throw error;db[t]=data.map(r=>fromRow(t,r))}}
+async function boot(){const{data:{session}}=await sb.auth.getSession();if(!session)return loginView();
+ try{const{data:p,error}=await sb.from('profiles').select('role').maybeSingle();if(error)throw error;role=p?p.role:'lector';await loadAll()}catch(e){$('app').innerHTML='<p>Error al cargar: '+esc(e.message)+'</p>';return}
+ $('who').innerHTML=esc(session.user.email)+' · '+role+' <button class="b2" onclick="logout()">Salir</button>';render()}
+function loginView(){$('nav').innerHTML='';$('who').innerHTML='';$('app').innerHTML=`<div class="card" style="max-width:340px;margin:40px auto;padding:20px"><h3 style="margin-top:0">Iniciar sesión</h3><div class="g" style="grid-template-columns:1fr"><label>Correo<input id="em" type="email"></label><label>Contraseña<input id="pw" type="password" onkeydown="if(event.key=='Enter')login()"></label></div><div class="ac"><button class="b1" onclick="login()">Entrar</button></div></div>`}
+async function login(){const{error}=await sb.auth.signInWithPassword({email:$('em').value.trim(),password:$('pw').value});if(error)return toast('Correo o contraseña incorrectos');boot()}
+async function logout(){await sb.auth.signOut();role=null;db={sites:[],eq:[],tech:[],ot:[]};loginView()}
+const $=i=>document.getElementById(i),uid=()=>'x'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const nm=(l,id)=>(l.find(x=>x.id==id)||{}).n||'—';
+const today=()=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const op=(arr,sel,blank)=>(blank!==undefined?`<option value="">${esc(blank)}</option>`:'')+arr.map(a=>{const[v,l]=Array.isArray(a)?a:[a,a];return `<option value="${esc(v)}"${v==sel?' selected':''}>${esc(l)}</option>`}).join('');
+function toast(m){const t=$('toast');t.textContent=m;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',2800)}
+function modal(title,fs,v,ok,btn){
+ const d=document.createElement('div');d.className='ov';
+ d.innerHTML=`<form class="md"><h3>${esc(title)}</h3><div class="g">${fs.map(f=>{const x=v[f.k]==null?'':v[f.k];let c;
+  if(f.t=='select')c=`<select name="${f.k}">${op(f.o||[],x,f.blank)}</select>`;
+  else if(f.t=='textarea')c=`<textarea name="${f.k}">${esc(x)}</textarea>`;
+  else c=`<input name="${f.k}" type="${f.t||'text'}" value="${esc(x)}">`;
+  return `<label class="${f.w?'w':''}">${esc(f.l)}${f.r?' *':''}${c}</label>`}).join('')}</div>
+  <div class="ac"><button type="button" class="b2">Cancelar</button><button class="b1">${btn||'Guardar'}</button></div></form>`;
+ document.body.appendChild(d);
+ const f=d.querySelector('form'),close=()=>d.remove();
+ const s=f.elements.site,e=f.elements.eq;
+ if(s&&e){const fill=()=>{e.innerHTML='<option value="">— Sin equipo —</option>'+op(db.eq.filter(q=>q.site==s.value).map(q=>[q.id,q.n+' ('+q.tipo+')']),'');};s.onchange=fill;fill();e.value=v.eq||''}
+ f.querySelector('.b2').onclick=close;
+ f.onsubmit=ev=>{ev.preventDefault();const o={};fs.forEach(q=>o[q.k]=f.elements[q.k].value);
+  const miss=fs.find(q=>q.r&&!String(o[q.k]).trim());if(miss){toast('Falta: '+miss.l);return}
+  Promise.resolve(ok(o)).then(r=>{if(r!==false)close()})};
+}
+function ctl(g,k){const v=FL[g][k]||'',a=`onchange="FL.${g}.${k}=this.value;render()"`;
+ if(k=='q')return `<label>Buscar<input ${a} value="${esc(v)}" placeholder="Folio, equipo, req, OC…"></label>`;
+ if(k=='d1'||k=='d2')return `<label>${k=='d1'?'Desde':'Hasta'}<input type="date" ${a} value="${v}"></label>`;
+ const L={tipo:['Tipo',['Preventivo','Correctivo']],site:['Campo',db.sites.map(s=>[s.id,s.n])],st:['Estado',ST],tech:['Técnico',db.tech.map(s=>[s.id,s.n])]}[k];
+ return `<label>${L[0]}<select ${a}>${op(L[1],v,'Todos')}</select></label>`}
+const bar=(g,ks,extra)=>`<div class="bar">${ks.map(k=>ctl(g,k)).join('')}${extra||''}</div>`;
+function filt(o,g){const f=FL[g];if(f.tipo&&o.tipo!=f.tipo)return 0;if(f.site&&o.site!=f.site)return 0;if(f.st&&o.st!=f.st)return 0;if(f.tech&&o.tech!=f.tech)return 0;
+ const d=o.fprog||o.fcre;if(f.d1&&d<f.d1)return 0;if(f.d2&&d>f.d2)return 0;
+ if(f.q){const t=[o.folio,nm(db.eq,o.eq),o.req,o.oc,o.desc,nm(db.sites,o.site)].join(' ').toLowerCase();if(!t.includes(f.q.toLowerCase()))return 0}return 1}
+const delBtn=(t,id)=>role!='admin'?'':`<button class="ic r" onclick="del('${t}','${id}')">${PD==t+id?'¿Seguro?':'Eliminar'}</button>`;
+async function del(t,id){
+ if(PD!=t+id){PD=t+id;render();setTimeout(()=>{if(PD==t+id){PD='';render()}},3000);return}
+ PD='';const key={ot:'ot',eq:'eq',tech:'tech',s:'sites'}[t];
+ if(t=='eq'&&db.ot.some(o=>o.eq==id)){toast('El equipo tiene órdenes ligadas; no se puede eliminar');render();return}
+ if(t=='tech'&&db.ot.some(o=>o.tech==id)){toast('El técnico tiene órdenes; mejor márcalo como Inactivo');render();return}
+ if(t=='s'&&(db.ot.some(o=>o.site==id)||db.eq.some(o=>o.site==id))){toast('El campo tiene equipos u órdenes; no se puede eliminar');render();return}
+ const{data,error}=await sb.from(TB[key]).delete().eq('id',id).select();if(error||!data.length){toast(error?error.message:'Sin permiso para eliminar');return render()}db[key]=db[key].filter(x=>x.id!=id);render()}
+/* Órdenes */
+function editOT(id){const o=id?db.ot.find(x=>x.id==id):{tipo:'Preventivo',st:'Pendiente de material',prio:'Media'};
+ modal(id?'Editar '+o.folio:'Nueva orden de trabajo',[
+ {k:'tipo',l:'Tipo',t:'select',o:['Preventivo','Correctivo']},{k:'site',l:'Campo',t:'select',o:db.sites.map(s=>[s.id,s.n]),blank:'Selecciona…',r:1},
+ {k:'eq',l:'Equipo',t:'select',o:[]},{k:'tech',l:'Técnico',t:'select',o:db.tech.filter(t=>t.act!='Inactivo'||t.id==o.tech).map(t=>[t.id,t.n]),blank:'— Sin asignar —'},
+ {k:'prio',l:'Prioridad',t:'select',o:PR},{k:'st',l:'Estado',t:'select',o:ST},
+ {k:'req',l:'Requisición (No.)'},{k:'oc',l:'Orden de compra (No.)'},
+ {k:'fprog',l:'Fecha programada',t:'date'},{k:'fcierre',l:'Fecha de cierre',t:'date'},
+ {k:'desc',l:'Descripción del trabajo',t:'textarea',w:1,r:1}],o,v=>{
+  if(v.st=='Completada'&&!v.fcierre)v.fcierre=today();
+  if(v.fprog&&v.st=='Pendiente de material')v.st='Programada';
+  return commit('ot',id,o,id?v:Object.assign(v,{fcre:today()}))})}
+function vO(){const t=today(),rows=db.ot.filter(o=>filt(o,'o')).sort((a,b)=>b.folio.localeCompare(a.folio));
+ const ab=db.ot.filter(o=>o.st!='Completada'&&o.st!='Cancelada');
+ const sx=[['Abiertas',ab.length],['Sin material',db.ot.filter(o=>o.st=='Pendiente de material').length],['Vencidas',ab.filter(o=>o.fprog&&o.fprog<t).length],['Completadas',db.ot.filter(o=>o.st=='Completada').length]];
+ return `<div class="st">${sx.map(s=>`<div><b>${s[1]}</b><span>${s[0]}</span></div>`).join('')}</div>`+
+ bar('o',['q','tipo','site','st','tech','d1','d2'],`<button class="b2" onclick="FL.o={};render()">Limpiar</button>${AC()?'<button class="b1" onclick="editOT()">+ Nueva orden</button>':''}`)+
+ `<div class="card"><table><tr><th>Folio</th><th>Tipo</th><th>Campo / Equipo</th><th>Técnico</th><th>Estado</th><th>Programada</th><th>Req.</th><th>OC</th><th></th></tr>`+
+ (rows.map(o=>`<tr><td><b>${o.folio}</b><div class="mu">${esc(o.prio)}</div></td><td class="${o.tipo}">${o.tipo}</td><td>${esc(nm(db.sites,o.site))}<div class="mu">${esc(nm(db.eq,o.eq))}</div><div class="mu">${esc(o.desc)}</div></td><td>${esc(nm(db.tech,o.tech))}</td><td><span class="tg ${o.st}">${o.st}</span></td><td>${o.fprog||'<span class="mu">Sin fecha</span>'}${o.fprog&&o.fprog<t&&o.st!='Completada'&&o.st!='Cancelada'?' <b style="color:var(--r)">⚠</b>':''}</td><td>${esc(o.req)||'—'}</td><td>${esc(o.oc)||'—'}</td><td style="white-space:nowrap"><button class="ic" onclick="editOT('${o.id}')">Editar</button>${delBtn('ot',o.id)}</td></tr>`).join('')||`<tr><td colspan="9" class="mu">Sin órdenes con esos filtros.</td></tr>`)+`</table></div>`}
+/* Equipos */
+function editEq(id){const o=id?db.eq.find(x=>x.id==id):{tipo:'Motor'};
+ modal(id?'Editar equipo':'Nuevo equipo',[{k:'n',l:'Nombre / TAG',r:1},{k:'tipo',l:'Tipo',t:'select',o:TIPOS},{k:'site',l:'Campo',t:'select',o:db.sites.map(s=>[s.id,s.n]),blank:'Selecciona…',r:1},{k:'nota',l:'Ubicación / potencia / notas'}],o,v=>{
+  return commit('eq',id,o,v)})}
+function vE(){const f=FL.c.eqs||{};const rows=db.eq.filter(e=>(!FL.e_site||e.site==FL.e_site)&&(!FL.e_tipo||e.tipo==FL.e_tipo));
+ return `<div class="bar"><label>Campo<select onchange="FL.e_site=this.value;render()">${op(db.sites.map(s=>[s.id,s.n]),FL.e_site,'Todos')}</select></label><label>Tipo<select onchange="FL.e_tipo=this.value;render()">${op(TIPOS,FL.e_tipo,'Todos')}</select></label>${AC()?'<button class="b1" onclick="editEq()">+ Nuevo equipo</button>':''}</div>
+ <div class="card"><table><tr><th>Equipo</th><th>Tipo</th><th>Campo</th><th>Notas</th><th>Órdenes</th><th></th></tr>`+
+ (rows.map(e=>`<tr><td><b>${esc(e.n)}</b></td><td>${esc(e.tipo)}</td><td>${esc(nm(db.sites,e.site))}</td><td>${esc(e.nota)}</td><td>${db.ot.filter(o=>o.eq==e.id).length}</td><td style="white-space:nowrap">${AC()?`<button class="ic" onclick="editEq('${e.id}')">Editar</button>`:''}${delBtn('eq',e.id)}</td></tr>`).join('')||`<tr><td colspan="6" class="mu">Aún no hay equipos. Agrega motores, bombas, lámparas, compresores, inyectores…</td></tr>`)+`</table></div>`}
+/* Técnicos */
+function editT(id){const o=id?db.tech.find(x=>x.id==id):{act:'Activo'};
+ modal(id?'Editar técnico':'Nuevo técnico',[{k:'n',l:'Nombre',r:1},{k:'esp',l:'Especialidad'},{k:'tel',l:'Teléfono'},{k:'act',l:'Estado',t:'select',o:['Activo','Inactivo']}],o,v=>{
+  return commit('tech',id,o,v)})}
+function vT(){return `<div class="bar">${AD()?'<button class="b1" onclick="editT()">+ Nuevo técnico</button>':''}</div><div class="card"><table style="min-width:520px"><tr><th>Nombre</th><th>Especialidad</th><th>Teléfono</th><th>Estado</th><th>Órdenes</th><th></th></tr>`+
+ (db.tech.map(t=>`<tr><td><b>${esc(t.n)}</b></td><td>${esc(t.esp)}</td><td>${esc(t.tel)}</td><td>${t.act}</td><td>${db.ot.filter(o=>o.tech==t.id).length}</td><td style="white-space:nowrap">${AD()?`<button class="ic" onclick="editT('${t.id}')">Editar</button>`:''}${delBtn('tech',t.id)}</td></tr>`).join('')||`<tr><td colspan="6" class="mu">Agrega tu primer técnico.</td></tr>`)+`</table></div>`}
+/* Desempeño */
+function vP(){const rows=db.tech.map(t=>{const os=db.ot.filter(o=>o.tech==t.id&&o.st!='Cancelada'&&filt(o,'p')),c=os.filter(o=>o.st=='Completada'),cf=c.filter(o=>o.fprog&&o.fcierre),ot=cf.filter(o=>o.fcierre<=o.fprog).length;
+ const cd=c.filter(o=>o.fcierre&&o.fcre),dias=cd.length?cd.reduce((s,o)=>s+(new Date(o.fcierre)-new Date(o.fcre))/864e5,0)/cd.length:null;
+ const cump=os.length?c.length/os.length*100:0,tiem=cf.length?ot/cf.length*100:null;
+ return {t,a:os.length,c:c.length,p:os.length-c.length,cump,tiem,dias,score:os.length?Math.round(cump*.6+(tiem==null?cump:tiem)*.4):null}}).sort((a,b)=>(b.score??-1)-(a.score??-1));
+ return bar('p',['tipo','site','tech','d1','d2'],`<button class="b2" onclick="FL.p={};render()">Limpiar</button>`)+`<p class="mu">Calificación = 60% órdenes completadas + 40% completadas a tiempo (cierre ≤ fecha programada). El periodo usa la fecha programada (o de creación si no tiene).</p>
+ <div class="card"><table><tr><th>Técnico</th><th>Asignadas</th><th>Completadas</th><th>Pendientes</th><th>% cumplimiento</th><th>% a tiempo</th><th>Días prom. cierre</th><th>Calificación</th></tr>`+
+ (rows.map(r=>`<tr><td><b>${esc(r.t.n)}</b><div class="mu">${esc(r.t.esp)}</div></td><td>${r.a}</td><td>${r.c}</td><td>${r.p}</td><td>${r.cump.toFixed(0)}%</td><td>${r.tiem==null?'—':r.tiem.toFixed(0)+'%'}</td><td>${r.dias==null?'—':r.dias.toFixed(1)}</td><td>${r.score==null?'—':`<b>${r.score}</b><div class="pb"><i style="width:${r.score}%"></i></div>`}</td></tr>`).join('')||`<tr><td colspan="8" class="mu">Agrega técnicos para ver su desempeño.</td></tr>`)+`</table></div>`}
+/* Cronograma */
+let CM=today().slice(0,7);
+function shift(n){const[y,m]=CM.split('-').map(Number),d=new Date(y,m-1+n,1);CM=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');render()}
+function vC(){const[y,m]=CM.split('-').map(Number),off=(new Date(y,m-1,1).getDay()+6)%7,dim=new Date(y,m,0).getDate(),t=today();
+ const f=FL.c,m0=o=>o.st!='Cancelada'&&(!f.tipo||o.tipo==f.tipo)&&(!f.site||o.site==f.site)&&(!f.tech||o.tech==f.tech);
+ const chip=o=>`<div class="chip ${o.tipo}" title="${esc(o.desc)}" onclick="editOT('${o.id}')">${o.folio} · ${esc(nm(db.eq,o.eq)!='—'?nm(db.eq,o.eq):nm(db.sites,o.site))}<div class="mu">${esc(nm(db.tech,o.tech))}</div></div>`;
+ let cells=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'].map(d=>`<div class="hd">${d}</div>`).join('')+'<div></div>'.repeat(off);
+ for(let d=1;d<=dim;d++){const ds=CM+'-'+String(d).padStart(2,'0');cells+=`<div class="${ds==t?'td':''}"><span class="dn">${d}</span>${db.ot.filter(o=>o.fprog==ds&&m0(o)).map(chip).join('')}</div>`}
+ const un=db.ot.filter(o=>!o.fprog&&o.st!='Completada'&&m0(o));
+ return bar('c',['tipo','site','tech'],`<label>Mes<input type="month" value="${CM}" onchange="CM=this.value||CM;render()"></label><button class="b2" onclick="shift(-1)">◀</button><button class="b2" onclick="CM=today().slice(0,7);render()">Hoy</button><button class="b2" onclick="shift(1)">▶</button>`)+
+ `<h3 style="margin:4px 0 8px;text-transform:capitalize">${new Date(y,m-1,1).toLocaleDateString('es-MX',{month:'long',year:'numeric'})}</h3><div class="card"><div class="cal">${cells}</div></div>
+ <h3>Sin fecha asignada (esperando material)</h3><div class="card" style="padding:8px">${un.map(chip).join('')||'<span class="mu">No hay órdenes sin programar.</span>'}</div>
+ <p class="mu">Azul = preventivo, naranja = correctivo. Haz clic en una orden para asignarle fecha o editarla.</p>`}
+/* Campos */
+function editS(id){const o=id?db.sites.find(x=>x.id==id):{};modal(id?'Renombrar campo':'Nuevo campo',[{k:'n',l:'Nombre del campo',r:1}],o,v=>commit('sites',id,o,{n:v.n}))}
+function vS(){return `<div class="bar">${AD()?'<button class="b1" onclick="editS()">+ Nuevo campo</button>':''}</div><div class="card"><table style="min-width:420px"><tr><th>Campo</th><th>Equipos</th><th>Órdenes</th><th></th></tr>`+db.sites.map(s=>`<tr><td><b>${esc(s.n)}</b></td><td>${db.eq.filter(e=>e.site==s.id).length}</td><td>${db.ot.filter(o=>o.site==s.id).length}</td><td style="white-space:nowrap">${AD()?`<button class="ic" onclick="editS('${s.id}')">Renombrar</button>`:''}${delBtn('s',s.id)}</td></tr>`).join('')+`</table></div>`}
+const TABS=[['o','Órdenes',vO],['c','Cronograma',vC],['e','Equipos',vE],['t','Técnicos',vT],['p','Desempeño',vP],['s','Campos',vS]];
+function render(){$('nav').innerHTML=TABS.map(t=>`<button class="${t[0]==TAB?'on':''}" onclick="TAB='${t[0]}';render()">${t[1]}</button>`).join('');$('app').innerHTML=TABS.find(t=>t[0]==TAB)[2]()}
+boot();
+</script></body></html>
