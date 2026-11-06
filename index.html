@@ -42,7 +42,7 @@ ST=['Pendiente de material','Programada','En proceso','Completada','Cancelada'],
 const SB_URL='https://ysomrydqmckakhchtzol.supabase.co',SB_KEY='sb_publishable_zoOiPMB-Mid6b7v1JZFNhw_p4Cx3v4I';
 const sb=supabase.createClient(SB_URL,SB_KEY);
 let db={sites:[],eq:[],tech:[],ot:[]},role=null,TAB='o',PD='',FL={o:{},p:{},c:{}};
-const AC=()=>role=='admin'||role=='campo',AD=()=>role=='admin';
+const AC=()=>role=='admin'||role=='campo',AD=()=>role=='admin',EO=()=>role=='admin'||role=='tecnico';
 const TB={ot:'work_orders',eq:'equipment',tech:'technicians',sites:'sites'},nul=x=>x===''||x==null?null:x;
 const MAP={sites:{n:'name'},eq:{n:'name',tipo:'type',site:'site_id',nota:'note'},tech:{n:'name',esp:'specialty',tel:'phone'},ot:{tipo:'type',site:'site_id',eq:'equipment_id',tech:'technician_id',prio:'priority',st:'status',req:'requisition',oc:'purchase_order',fprog:'scheduled_date',fcierre:'closed_date',fcre:'created_date',desc:'description'}};
 function toRow(t,o){const r={id:o.id};for(const k in MAP[t])r[MAP[t][k]]=nul(o[k]);if(t=='tech')r.active=o.act!='Inactivo';return r}
@@ -97,7 +97,7 @@ async function del(t,id){
  if(t=='s'&&(db.ot.some(o=>o.site==id)||db.eq.some(o=>o.site==id))){toast('El campo tiene equipos u órdenes; no se puede eliminar');render();return}
  const{data,error}=await sb.from(TB[key]).delete().eq('id',id).select();if(error||!data.length){toast(error?error.message:'Sin permiso para eliminar');return render()}db[key]=db[key].filter(x=>x.id!=id);render()}
 /* Órdenes */
-function editOT(id){const o=id?db.ot.find(x=>x.id==id):{tipo:'Preventivo',st:'Pendiente de material',prio:'Media'};
+function editOT(id){if(id&&!EO())return toast('Tu rol solo permite agregar órdenes nuevas');const o=id?db.ot.find(x=>x.id==id):{tipo:'Preventivo',st:'Pendiente de material',prio:'Media'};
  modal(id?'Editar '+o.folio:'Nueva orden de trabajo',[
  {k:'tipo',l:'Tipo',t:'select',o:['Preventivo','Correctivo']},{k:'site',l:'Campo',t:'select',o:db.sites.map(s=>[s.id,s.n]),blank:'Selecciona…',r:1},
  {k:'eq',l:'Equipo',t:'select',o:[]},{k:'tech',l:'Técnico',t:'select',o:db.tech.filter(t=>t.act!='Inactivo'||t.id==o.tech).map(t=>[t.id,t.n]),blank:'— Sin asignar —'},
@@ -114,15 +114,15 @@ function vO(){const t=today(),rows=db.ot.filter(o=>filt(o,'o')).sort((a,b)=>b.fo
  return `<div class="st">${sx.map(s=>`<div><b>${s[1]}</b><span>${s[0]}</span></div>`).join('')}</div>`+
  bar('o',['q','tipo','site','st','tech','d1','d2'],`<button class="b2" onclick="FL.o={};render()">Limpiar</button><button class="b2" onclick="expX()">⬇ Excel</button><button class="b2" onclick="expP()">⬇ PDF</button>${AC()?'<button class="b1" onclick="editOT()">+ Nueva orden</button>':''}`)+
  `<div class="card"><table><tr><th>Folio</th><th>Tipo</th><th>Campo / Equipo</th><th>Técnico</th><th>Estado</th><th>Programada</th><th>Req.</th><th>OC</th><th></th></tr>`+
- (rows.map(o=>`<tr><td><b>${o.folio}</b><div class="mu">${esc(o.prio)}</div></td><td class="${o.tipo}">${o.tipo}</td><td>${esc(nm(db.sites,o.site))}<div class="mu">${esc(nm(db.eq,o.eq))}</div><div class="mu">${esc(o.desc)}</div></td><td>${esc(nm(db.tech,o.tech))}</td><td><span class="tg ${o.st}">${o.st}</span></td><td>${o.fprog||'<span class="mu">Sin fecha</span>'}${o.fprog&&o.fprog<t&&o.st!='Completada'&&o.st!='Cancelada'?' <b style="color:var(--r)">⚠</b>':''}</td><td>${esc(o.req)||'—'}</td><td>${esc(o.oc)||'—'}</td><td style="white-space:nowrap"><button class="ic" onclick="editOT('${o.id}')">Editar</button>${delBtn('ot',o.id)}</td></tr>`).join('')||`<tr><td colspan="9" class="mu">Sin órdenes con esos filtros.</td></tr>`)+`</table></div>`}
+ (rows.map(o=>`<tr><td><b>${o.folio}</b><div class="mu">${esc(o.prio)}</div></td><td class="${o.tipo}">${o.tipo}</td><td>${esc(nm(db.sites,o.site))}<div class="mu">${esc(nm(db.eq,o.eq))}</div><div class="mu">${esc(o.desc)}</div></td><td>${esc(nm(db.tech,o.tech))}</td><td><span class="tg ${o.st}">${o.st}</span></td><td>${o.fprog||'<span class="mu">Sin fecha</span>'}${o.fprog&&o.fprog<t&&o.st!='Completada'&&o.st!='Cancelada'?' <b style="color:var(--r)">⚠</b>':''}</td><td>${esc(o.req)||'—'}</td><td>${esc(o.oc)||'—'}</td><td style="white-space:nowrap">${EO()?`<button class="ic" onclick="editOT('${o.id}')">Editar</button>`:''}${delBtn('ot',o.id)}</td></tr>`).join('')||`<tr><td colspan="9" class="mu">Sin órdenes con esos filtros.</td></tr>`)+`</table></div>`}
 /* Equipos */
 function editEq(id){const o=id?db.eq.find(x=>x.id==id):{tipo:'Motor'};
  modal(id?'Editar equipo':'Nuevo equipo',[{k:'n',l:'Nombre / TAG',r:1},{k:'tipo',l:'Tipo',t:'select',o:TIPOS},{k:'site',l:'Campo',t:'select',o:db.sites.map(s=>[s.id,s.n]),blank:'Selecciona…',r:1},{k:'nota',l:'Ubicación / potencia / notas'}],o,v=>{
   return commit('eq',id,o,v)})}
 function vE(){const f=FL.c.eqs||{};const rows=db.eq.filter(e=>(!FL.e_site||e.site==FL.e_site)&&(!FL.e_tipo||e.tipo==FL.e_tipo));
- return `<div class="bar"><label>Campo<select onchange="FL.e_site=this.value;render()">${op(db.sites.map(s=>[s.id,s.n]),FL.e_site,'Todos')}</select></label><label>Tipo<select onchange="FL.e_tipo=this.value;render()">${op(TIPOS,FL.e_tipo,'Todos')}</select></label>${AC()?'<button class="b1" onclick="editEq()">+ Nuevo equipo</button>':''}</div>
+ return `<div class="bar"><label>Campo<select onchange="FL.e_site=this.value;render()">${op(db.sites.map(s=>[s.id,s.n]),FL.e_site,'Todos')}</select></label><label>Tipo<select onchange="FL.e_tipo=this.value;render()">${op(TIPOS,FL.e_tipo,'Todos')}</select></label>${AD()?'<button class="b1" onclick="editEq()">+ Nuevo equipo</button>':''}</div>
  <div class="card"><table><tr><th>Equipo</th><th>Tipo</th><th>Campo</th><th>Notas</th><th>Órdenes</th><th></th></tr>`+
- (rows.map(e=>`<tr><td><b>${esc(e.n)}</b></td><td>${esc(e.tipo)}</td><td>${esc(nm(db.sites,e.site))}</td><td>${esc(e.nota)}</td><td>${db.ot.filter(o=>o.eq==e.id).length}</td><td style="white-space:nowrap">${AC()?`<button class="ic" onclick="editEq('${e.id}')">Editar</button>`:''}${delBtn('eq',e.id)}</td></tr>`).join('')||`<tr><td colspan="6" class="mu">Aún no hay equipos. Agrega motores, bombas, lámparas, compresores, inyectores…</td></tr>`)+`</table></div>`}
+ (rows.map(e=>`<tr><td><b>${esc(e.n)}</b></td><td>${esc(e.tipo)}</td><td>${esc(nm(db.sites,e.site))}</td><td>${esc(e.nota)}</td><td>${db.ot.filter(o=>o.eq==e.id).length}</td><td style="white-space:nowrap">${AD()?`<button class="ic" onclick="editEq('${e.id}')">Editar</button>`:''}${delBtn('eq',e.id)}</td></tr>`).join('')||`<tr><td colspan="6" class="mu">Aún no hay equipos. Agrega motores, bombas, lámparas, compresores, inyectores…</td></tr>`)+`</table></div>`}
 /* Técnicos */
 function editT(id){const o=id?db.tech.find(x=>x.id==id):{act:'Activo'};
  modal(id?'Editar técnico':'Nuevo técnico',[{k:'n',l:'Nombre',r:1},{k:'esp',l:'Especialidad'},{k:'tel',l:'Teléfono'},{k:'act',l:'Estado',t:'select',o:['Activo','Inactivo']}],o,v=>{
