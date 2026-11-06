@@ -1,8 +1,8 @@
 <!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Control de Mantenimiento Eléctrico</title>
 <style>
-:root{--bg:#f4f6f8;--c:#fff;--t:#1d2430;--m:#667085;--b:#e1e5ea;--p:#1f6feb;--o:#d9680b;--g:#12805c;--r:#c62828;--h:#eef1f5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#12161c;--c:#1b212a;--t:#e8ecf1;--m:#97a1b0;--b:#2c3541;--p:#5a9bff;--o:#f0903a;--g:#3cc79a;--r:#ff6b6b;--h:#232b36}}
-:root[data-theme="dark"]{color-scheme:dark;--bg:#12161c;--c:#1b212a;--t:#e8ecf1;--m:#97a1b0;--b:#2c3541;--p:#5a9bff;--o:#f0903a;--g:#3cc79a;--r:#ff6b6b;--h:#232b36}
+:root{--bg:#f4f6f8;--c:#fff;--t:#1d2430;--m:#667085;--b:#e1e5ea;--p:#1f6feb;--o:#d9680b;--g:#12805c;--r:#c62828;--h:#eef1f5;--wk:#eef1f4;--ps:#cfe0fb;--cs:#f8dcc2;--td:#d92d20;--mk:#1c2530;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#12161c;--c:#1b212a;--t:#e8ecf1;--m:#97a1b0;--b:#2c3541;--p:#5a9bff;--o:#f0903a;--g:#3cc79a;--r:#ff6b6b;--h:#232b36;--wk:#202833;--ps:#27395a;--cs:#5a3a1f;--td:#ff6b5f;--mk:#e8ecf1}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#12161c;--c:#1b212a;--t:#e8ecf1;--m:#97a1b0;--b:#2c3541;--p:#5a9bff;--o:#f0903a;--g:#3cc79a;--r:#ff6b6b;--h:#232b36;--wk:#202833;--ps:#27395a;--cs:#5a3a1f;--td:#ff6b5f;--mk:#e8ecf1}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--t);font:14px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 header{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 16px;background:var(--c);border-bottom:1px solid var(--b);flex-wrap:wrap}
@@ -29,6 +29,32 @@ table{border-collapse:collapse;width:100%;min-width:760px}th,td{padding:8px 10px
 .pb{background:var(--h);border-radius:5px;height:8px;min-width:80px}.pb i{display:block;height:100%;border-radius:5px;background:var(--g)}
 #toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--t);color:var(--bg);padding:9px 16px;border-radius:8px;display:none;z-index:99}
 .mu{color:var(--m)}
+.gs{display:grid;grid-template-columns:minmax(240px,1.6fr) repeat(3,minmax(100px,1fr));gap:1px;background:var(--b);border:1px solid var(--b);border-radius:8px;overflow:hidden;margin-bottom:12px}
+.gs>div{background:var(--c);padding:10px 14px;min-width:0}.gs .k{color:var(--m);font-size:12px}.gv{font-size:24px;font-weight:600;font-variant-numeric:tabular-nums}
+.gm{position:relative;height:10px;background:var(--h);border-radius:5px;margin-top:6px}.gm i{position:absolute;inset:0 auto 0 0;background:var(--g);border-radius:5px}.gm b{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--mk)}
+.gl2{display:flex;justify-content:space-between;font-size:11.5px;color:var(--m);margin-top:5px}
+@media(max-width:700px){.gs{grid-template-columns:1fr 1fr}.gs>div:first-child{grid-column:1/-1}}
+.gleg{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--m);margin:0 0 10px}.gleg span{display:inline-flex;align-items:center;gap:6px}.gleg i{display:inline-block;width:22px;height:10px;border-radius:3px}
+.gt{background:var(--c);border:1px solid var(--b);border-radius:8px;overflow:auto;max-height:74vh}
+.gi{min-width:max-content;position:relative;--lw:300px;--dw:30px}
+.gr{display:flex;border-bottom:1px solid var(--b);min-height:44px}
+.gl{position:sticky;left:0;z-index:3;flex:0 0 var(--lw);width:var(--lw);background:var(--c);border-right:1px solid var(--b);display:grid;grid-template-columns:1fr 76px;align-items:center;gap:8px;padding:6px 10px}
+.gk{position:relative;flex:0 0 auto;width:calc(var(--dw)*var(--n));overflow:hidden;background:repeating-linear-gradient(90deg,transparent 0 calc(var(--dw) - 1px),var(--b) calc(var(--dw) - 1px) var(--dw))}
+.gw{position:absolute;top:0;bottom:0;width:var(--dw);background:var(--wk)}
+.gb{position:absolute;top:11px;height:22px;border-radius:4px;overflow:hidden}
+.gb.Preventivo{background:var(--ps)}.gb.Correctivo{background:var(--cs)}
+.gb .f{position:absolute;inset:0 auto 0 0}.gb.Preventivo .f{background:var(--p)}.gb.Correctivo .f{background:var(--o)}
+.gb .x{position:absolute;top:0;bottom:0;width:2px;background:var(--mk)}
+.gtx{position:absolute;top:13px;font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap;background:var(--c);border-radius:3px;padding:0 3px}
+.gg{background:var(--h);min-height:32px;font-weight:600}.gg .gl{background:var(--h);grid-template-columns:1fr auto}.gg .gk{background:var(--h)}
+.gh{position:sticky;top:0;z-index:5;background:var(--h)}.gh .gl{background:var(--h);z-index:6;font-size:12px;color:var(--m);display:flex;align-items:flex-end;justify-content:space-between}.gh .gr{min-height:0}.gh .gk{background:var(--h)}
+.gmon{display:flex;height:24px;font-size:12px;font-weight:600}.gmon span{padding-left:8px;border-left:1px solid var(--b);display:flex;align-items:center;overflow:hidden;white-space:nowrap}
+.gdy{display:flex;height:38px}.gdy div{width:var(--dw);flex:0 0 var(--dw);text-align:center;font-size:11px;color:var(--m);border-left:1px solid var(--b);padding-top:4px;font-variant-numeric:tabular-nums}
+.gdy div b{display:block;font-size:12.5px;color:var(--t);font-weight:500}.gdy div.we{background:var(--wk)}.gdy div.td b{color:#fff;background:var(--td);border-radius:4px;margin:0 3px}
+.gtd{position:absolute;top:62px;bottom:0;width:2px;background:var(--td);z-index:2;pointer-events:none}
+.geq{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.gsub{font-size:12px;color:var(--m);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gpc{display:flex;flex-direction:column;align-items:flex-end;gap:3px}.gpc input{width:62px;text-align:right;padding:4px 6px}.gpc .ro{font-size:15px;font-weight:600}
+.gc{font-size:11px;padding:1px 7px;border-radius:9px;border:1px solid var(--b);white-space:nowrap}.gc.late{color:var(--r);border-color:var(--r)}.gc.ok{color:var(--g);border-color:var(--g)}.gc.done{background:var(--g);color:#fff;border-color:var(--g)}.gc.wait{color:var(--m)}
 </style></head><body>
 <header><div style="display:flex;align-items:center;gap:10px"><img id="logo" alt="Molina Group" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIIAAACCCAMAAAC93eDPAAABO1BMVEX////8+eOzAUz79uG0BU/+/P0+jyq8zwL//+379eH//+qxAEevAEP//+///+z8+uTwzdz78/e9I2HjprDC0gC/Kmny2M/y1eLrvNDin7zVc5zJTIHci6735e3XeaC3EVbYgJnFQHPhnqzrwcHQZYjTb4757t7LVn/JTnsleTPnsbjALmzTa5bflbVgoUrci6A1hi5CkilioSCqADkwhxwsfzGEsIDZ1hyTuhBRmCb14tTvzcjS4rtrph82iy03gkB8rhi3z6kJaBusxwnelKXM3rSoypDt8dfB2Kl9sWZMlEGjx4wceBeOvHeXu41ankKoxp5ypXB0rV9HjE7Y5MeCsz719MDI1zDm655gm2D//t739saItRfu74+lxabr7q3K2VadwVHg5n+LuVdqpzxUm0/N2kHm7Mrf5mfhGCr4AAAMxElEQVR4nO1bC1vaSBdOCJfJkMkoQdraWsIlKNjKTZCLoggaW7dWV/fr2tqvu91v2/3/v+A7MxMiBITg5WmffTyPjyQBMm/eOec9Zy5I0qM92qM92qP9+yzk2g9qfNaVh21eHCyuPFl4CrbwZGXR89bDts8bX3i2/Hw9Fgw4FoytP19+trB4/YkHBRBaePE8FphosecvFkIPCYLfeeHlknjuIKPAoSHoXggEll4uSA+Egt108fW6aN5tMsrtGhKHsf568SFAwA1XXibdJw5ENU2LBpMxbskgPw24zCRfrvCv3CeAkLSynBRPyZsPxlZNI5No5VRZVnOtRMYwV2NBDkN8Krm8cq9EhKTQi2RA3D2qRWNZI0F1hDDGlBscIKTThJGNwdsCZyD5InRvRMDDPF0SAAKaFrMyCrQuK6qqKLJjCjuTAYeSsWKaJj4bWHp6T0SEpMVXAwDRlKEiTFl7E0xRFIqRaqSiAxCvFu+DiJC0sCR8UIuuZYB60TxF4j/RryEgQgEGRTizFtWEZy4t3BkDEPk6yB8pqqUAgKwiMAqNH+jw3z443EaifUro9qHNjlQF65kU+ATDEHx9x84Ah3ol9EeLGeBzhH4/ODo6+E6lg803NrI3Njff2pS1S+zjjc4vx8TpEYyNmCZU69WdvBLc4LmgIJrNIUXZfrcR3gQLbxxC4xs23QiHfzkhrEMOw5udWniDum6BctmoIOL5HRwCxGCdI9CSBUQVdPxLqdQJl8thwBGGfxvkHbzu2hCWb+AgXyqHv7uuAT5RSGocw/rKbTEAgiWBINVC4IPkcLNTqtVqpTCAYLZ5dLwZLtdOKIdSq5XhChkKENRKCQxLt8QwQBDQLExZFKDtMKOgVMsPQGy8hyul2vt37CXPQB0PQQAisKUFbo8B/GBdICiigQa9Z+06IFzr5MOb7H+JddAxGhUKVBQY1m/lDyHuiYFomqjOHTnfAkS+1hFEdDrcB8qsGwDCoUQQGYKhkjTPo4Hn8yMISSIao4aLgPdE2AFR408NEErlGhxBNHA7Oj07O+vq+hAGQ2B4NS8NoEiiF645YBh+3XRBABH8oFQulcrlASlnJ93uyfn5xTCGtOiL1/NhAFUWmlwcRiDrLg2cCI6hVu7UOqWSEyS/fmcdUc9f4CEMRaHWc2r14hJHYKFhBDwuh0BwDKAUzZ1KuTOIU+YIpL5rExeEiiyOYWlxLhKYI4AeYNlj6HgYQ6kGTlDpReLxyBV3DCcoEd09P7m4jk/M9GEud4D6gMl7NNnCY0kZHYWHMHQ6tWYcAEQi8Ua4U6789h8EDevd3Xx+f/9Ed+Rawa0k88nA0zkw8Co1WkBeBJggOzyCodaLb21tMQx7e4yND18I3t4/7+a79f36wCkVVOAQ1v0iCEkveDdYYwjIRf28tDkMIb8Xj2xtMRoARJxj+V263EV2fls62T8lLgaLd8ULvzSssEo5GsvRUQBUP8mfnx69edvpdBwO8ju8EyLC4gLMx8tzcpa3Zf5v8N1cjPGQXPFJwjInwfCSoNfhsZD06UPjqrHHnK9Wuhq0LoyzEPn83/38fhfJ2M4P0WBwGpb90cBIYNHgQUBO97tEJl8Y4/Emi8WryBCCeK/nnP1BTutcm9D5mRsVCo8KfzSEpJdMF6OZUQjQKbuXcMOPH3gzjV6jFx+hIN5oOOd/EqeiRJfDEDJRppEv/dCwGGMkrOoeEvAFI5d8jogYjPdEi/GG8/DxPedC7w1vl1JZ361fa4OirzIaYrP1yUkOXhKgH7b3L4hN/hkEQG9HREFlwH+zJ6DsCAfYtqXusE4PaPCTKtYneQIiNsQY6MIfbgxC20BIZSfuQKnEuV29FWFgd7v5+kgBI7xhfTYJCzw5eMKBdC93QfHyZ+RrZOACTfCHvXCl0WBXGs1mr9Ho9Ro74QNRLpAzkMfhe4igCARmZSvhjF5NQCfnp7aye9ndr39yA6C8V2lWoP+vKpVms7wDXrHTbDZ/vRAIUP28fjECQWiDD4cMrQfGhBF1z2AEQer79kkeaBDEN6EHeHqIRyA6WHhycfwqiebsPD09ISMQhETOUmnRD15nxCc2cyt7N7+7K5OvvR40Wm660bgVd/qGecmfTrO0fn5pj8qrcMhZPSHSQzSmjnyZdrmHYbt+2cUyOfjrf++be0OSuCWCk0FwIpKp+YUHAVxTeU9MTxQhCWrWoJYdrVSwczdKeGWKiCJ/uJalOI+Q+FWPdUzl0CUfexFA7ZLVglDJTncGoUve9DB2M4DgqIMLZKfBtOJve+yjQz0hYmKqOjmuEEyMlyqjRr659DvaGGlCgIQrf6Ap31JwIjjLGULSM+4K09tnED7HXY0Ueg0S1WOJ6jOZ+kXuDM+mQlhmrjCWH8aNfmMRGd/rNZoNlrWaTQ4kEvkwlQaWJ6ZnbMcbTU/dPMGQ/dtVr7fThK4APSqXd1zH/DjuOK6pyJztj+uTvHGS6fa792GWopgyNYRbcv+YBsHxx6lpggXEhCw5ySiyv4tqkSmTy8K3ab7giNOUkIDhfNBXQAgMEBeiYIXeqAwC4/fpEHhIBG8e6oekJyyjw/DBBwIwKOKENMebVyJT936bDh4GFKwaeTIFwsLE0vlmDF9FHFQgHnqNq73Ke09y9JpTSN8sDGIU5c0QUzF8+QZFQ7kJbtnbq1T27OkIRJaYNqoaQJggyDdiIN+7fzXiPG+DfZouTHDj+4cAd5X+iUcG1dyX+4LgvyOYQUXrQIj3DmZBmN0Rc7qjgPDF0WbIlhczYsmHO84XlI6hb06+vvp71hd9BOU80uQa+fSBe+NVeHtGQMyWprkEehjDx396V3vNt0fTsqSAMEugpTnSlAeEfXp8ZM9C4CdN+U/WXoOyksx2Yh/J2n/JcjvzVbL4LNxubT4Kt0nlq6KogwN+GU6pc6S4i3R8uc45V5zVMy+XfsrXiUU81Qfz2jphYwOFErgZu0QxQs5oga9TwsCbsD7EYtqTekPUTxE/aSiDE2bWZJKt4HTWbFFVT5jFvpXGIHVFy+pzNacFyzITcj+bLWCFGlmDwsfbBU9w+xrKTBjQKdjQNKYUNJesFrCqG4G+TBOxVI7SthZoiU8qqaqBaSJZZdLaskDiFWLFPGLpc0A3NqyFDsyyGAFZSQUSGGeqFnQEyVSzWFaSTivQntbGNGekqmtAQ4GtIqpL2qjG+RvWThjcM0Jj0DbNFVY1gJDSmLMqdCmawLlkjLoUA4RWIcEn7w3eXtET3f4G9xOmOOBeiWLVRPCS1RJ6IhATjrFaLaAxCAZbfMhgg11Lq7HAyCS2zymO8YkegNBuBZI5nMbAAmlrS5Q/UbZqTICA9Ww1liso4MUFqV8tDoWW34keaWy6CyBkSLaahicECCgRdVhYq2ZcCPQagqwuVVcLiqKnC4mCx6/9TXeNT/pxCBktVUgwCJj7AA8PIEblEBS5dQ1BxW0Iaizn+u1MAjpLH3oU35N+nqlPcMc2hmcuYrQabWFcqJosItLVtC4DBJ1SPVekTkSAEigoXV3FuJ0hMiBfu55+9T31OTYBrOB+GhoGAnIp0AVgGHRBNoJFDOCimqHmWqksgffgUxmLB+jaGmlZLarQXLBq0FESfE0Ae6bBacsstnDOYAoIR9DtCbPfN9sIWuiDJhYKfZBEeM9syX0rg1l1ZmADjqBV0zQTeNgT/K0GeBcDKFN/GQ3yANyMUIoYQJYj2IYWorP3EMsRwjuxkyYwIogOhYPvxQDvkojIfjwBDjKlrA4yJRyw9Cjec1Pq4EgdXJlvSWTKwtDAs6ac3fCNeReGbl4eE73KEzQVy/kKFYmZsj/eBxMRzLk8NnWRkGXvNnQRVRN8uIFbbZAfqqjsD/hOTBiK3WqR8MalUrhd0SpaqoKKrDZQcSZbzOYobpskwzYZrFrWhLHY/Eul0o0LxkyosoiAAyKz3baIirNtqV9EGI4LJpJzWcnKeIvfWy0Y37RsznvVJCZnYS3FeiKbQxlIo21TghdFWbNMxcPCbZfNJ28e4H2/lsittigyM30Taiio4CxDp4lV3O8jWc22vFPPt908MHkLheiJjGX24aWQQKB8oJ1WH7PqzjKhklPTXke4/RYKadJGEocHzCMPYpJVyBCbvFDWKX98b9F8l40kE7fTCB4UeSCX/NTzMkLZXbfTeDcVzW133VQ0vrVqbgR33lo1tsFsXgruYYPZ+Da7OQDc0za7sc2GfkHc42ZD75ZLHSs+Jj/ud8ulNLbxFNHpVNz/xlNp8vbbyTCghnqQ7bc/wyZk6SfYii39DBvSpZ9gW770M/w4QfoJfqLhoviRP1RxQfzQn+s4KH7sj5auYfzIn26NNvvDfsD2aI/2aI/2aA9t/wfhwrKGjehB3AAAAABJRU5ErkJggg==" style="height:42px;width:42px;border-radius:50%"><h1>Mantenimiento Eléctrico</h1></div><span id="who"></span></header>
 <nav id="nav"></nav><main id="app"></main><div id="toast"></div>
@@ -44,9 +70,9 @@ const sb=supabase.createClient(SB_URL,SB_KEY);
 let db={sites:[],eq:[],tech:[],ot:[]},role=null,TAB='o',PD='',FL={o:{},p:{},c:{}};
 const AC=()=>role=='admin'||role=='campo',AD=()=>role=='admin',EO=AC;
 const TB={ot:'work_orders',eq:'equipment',tech:'technicians',sites:'sites'},nul=x=>x===''||x==null?null:x;
-const MAP={sites:{n:'name'},eq:{n:'name',tipo:'type',site:'site_id',nota:'note'},tech:{n:'name',esp:'specialty',tel:'phone'},ot:{tipo:'type',site:'site_id',eq:'equipment_id',tech:'technician_id',prio:'priority',st:'status',req:'requisition',oc:'purchase_order',fprog:'scheduled_date',fcierre:'closed_date',fcre:'created_date',desc:'description'}};
-function toRow(t,o){const r={id:o.id};for(const k in MAP[t])r[MAP[t][k]]=nul(o[k]);if(t=='tech')r.active=o.act!='Inactivo';return r}
-function fromRow(t,r){const o={id:r.id};for(const k in MAP[t])o[k]=r[MAP[t][k]]==null?'':r[MAP[t][k]];if(t=='tech')o.act=r.active?'Activo':'Inactivo';if(t=='ot')o.folio='OT-'+String(r.folio_num).padStart(4,'0');return o}
+const MAP={sites:{n:'name'},eq:{n:'name',tipo:'type',site:'site_id',nota:'note'},tech:{n:'name',esp:'specialty',tel:'phone'},ot:{tipo:'type',site:'site_id',eq:'equipment_id',tech:'technician_id',prio:'priority',st:'status',req:'requisition',oc:'purchase_order',fini:'start_date',fprog:'scheduled_date',fcierre:'closed_date',fcre:'created_date',desc:'description'}};
+function toRow(t,o){const r={id:o.id};for(const k in MAP[t])r[MAP[t][k]]=nul(o[k]);if(t=='tech')r.active=o.act!='Inactivo';if(t=='ot')r.progress=Math.max(0,Math.min(100,Math.round(Number(o.avance)||0)));return r}
+function fromRow(t,r){const o={id:r.id};for(const k in MAP[t])o[k]=r[MAP[t][k]]==null?'':r[MAP[t][k]];if(t=='tech')o.act=r.active?'Activo':'Inactivo';if(t=='ot'){o.folio='OT-'+String(r.folio_num).padStart(4,'0');o.avance=Number(r.progress)||0}return o}
 async function put(t,o,isNew){const q=sb.from(TB[t]);const{data,error}=await(isNew?q.insert(toRow(t,o)):q.update(toRow(t,o)).eq('id',o.id)).select().single();if(error)throw error;return fromRow(t,data)}
 async function commit(t,id,o,v){const obj=id?Object.assign({},o,v):Object.assign({},v,{id:crypto.randomUUID()});try{const r=await put(t,obj,!id);if(id)Object.assign(o,r);else db[t].push(r);render()}catch(e){toast('No se guardó: '+(e.message||'error'));return false}}
 async function loadAll(){for(const t in TB){const{data,error}=await sb.from(TB[t]).select('*');if(error)throw error;db[t]=data.map(r=>fromRow(t,r))}}
@@ -67,7 +93,7 @@ function modal(title,fs,v,ok,btn){
  d.innerHTML=`<form class="md"><h3>${esc(title)}</h3><div class="g">${fs.map(f=>{const x=v[f.k]==null?'':v[f.k];let c;
   if(f.t=='select')c=`<select name="${f.k}">${op(f.o||[],x,f.blank)}</select>`;
   else if(f.t=='textarea')c=`<textarea name="${f.k}">${esc(x)}</textarea>`;
-  else c=`<input name="${f.k}" type="${f.t||'text'}" value="${esc(x)}">`;
+  else c=`<input name="${f.k}" type="${f.t||'text'}" value="${esc(x)}"${f.a?' '+f.a:''}>`;
   return `<label class="${f.w?'w':''}">${esc(f.l)}${f.r?' *':''}${c}</label>`}).join('')}</div>
   <div class="ac"><button type="button" class="b2">Cancelar</button><button class="b1">${btn||'Guardar'}</button></div></form>`;
  document.body.appendChild(d);
@@ -82,10 +108,10 @@ function modal(title,fs,v,ok,btn){
 function ctl(g,k){const v=FL[g][k]||'',a=`onchange="FL.${g}.${k}=this.value;render()"`;
  if(k=='q')return `<label>Buscar<input ${a} value="${esc(v)}" placeholder="Folio, equipo, req, OC…"></label>`;
  if(k=='d1'||k=='d2')return `<label>${k=='d1'?'Desde':'Hasta'}<input type="date" ${a} value="${v}"></label>`;
- const L={tipo:['Tipo',['Preventivo','Correctivo']],site:['Campo',db.sites.map(s=>[s.id,s.n])],st:['Estado',ST],tech:['Técnico',db.tech.map(s=>[s.id,s.n])]}[k];
+ const L={tipo:['Tipo',['Preventivo','Correctivo']],site:['Campo',db.sites.map(s=>[s.id,s.n])],st:['Estado',ST],tech:['Técnico',db.tech.map(s=>[s.id,s.n])],prio:['Prioridad',PR]}[k];
  return `<label>${L[0]}<select ${a}>${op(L[1],v,'Todos')}</select></label>`}
 const bar=(g,ks,extra)=>`<div class="bar">${ks.map(k=>ctl(g,k)).join('')}${extra||''}</div>`;
-function filt(o,g){const f=FL[g];if(f.tipo&&o.tipo!=f.tipo)return 0;if(f.site&&o.site!=f.site)return 0;if(f.st&&o.st!=f.st)return 0;if(f.tech&&o.tech!=f.tech)return 0;
+function filt(o,g){const f=FL[g];if(f.tipo&&o.tipo!=f.tipo)return 0;if(f.site&&o.site!=f.site)return 0;if(f.st&&o.st!=f.st)return 0;if(f.tech&&o.tech!=f.tech)return 0;if(f.prio&&o.prio!=f.prio)return 0;
  const d=o.fprog||o.fcre;if(f.d1&&d<f.d1)return 0;if(f.d2&&d>f.d2)return 0;
  if(f.q){const t=[o.folio,nm(db.eq,o.eq),o.req,o.oc,o.desc,nm(db.sites,o.site)].join(' ').toLowerCase();if(!t.includes(f.q.toLowerCase()))return 0}return 1}
 const delBtn=(t,id)=>role!='admin'?'':`<button class="ic r" onclick="del('${t}','${id}')">${PD==t+id?'¿Seguro?':'Eliminar'}</button>`;
@@ -96,6 +122,18 @@ async function del(t,id){
  if(t=='tech'&&db.ot.some(o=>o.tech==id)){toast('El técnico tiene órdenes; mejor márcalo como Inactivo');render();return}
  if(t=='s'&&(db.ot.some(o=>o.site==id)||db.eq.some(o=>o.site==id))){toast('El campo tiene equipos u órdenes; no se puede eliminar');render();return}
  const{data,error}=await sb.from(TB[key]).delete().eq('id',id).select();if(error||!data.length){toast(error?error.message:'Sin permiso para eliminar');return render()}db[key]=db[key].filter(x=>x.id!=id);render()}
+/* Fechas y avance */
+const DM=864e5,MAXD=92,MES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],DL=['D','L','M','M','J','V','S'];
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const pd=s=>{const a=s.split('-').map(Number);return new Date(a[0],a[1]-1,a[2])};
+const addD=(s,k)=>{const a=s.split('-').map(Number);return iso(new Date(a[0],a[1]-1,a[2]+k))};
+const dd=(a,b)=>Math.round((pd(b)-pd(a))/DM);
+const ost=o=>o.fini||o.fprog||'';
+const oen=o=>{const s=ost(o),e=o.fprog||o.fini||'';return e<s?s:e};
+const ef=o=>o.st=='Completada'?100:Math.max(0,Math.min(100,Number(o.avance)||0));
+const esp=(o,t)=>{const s=ost(o);if(!s)return 0;const len=dd(s,oen(o))+1;return Math.max(0,Math.min(100,Math.round((dd(s,t)+1)/len*100)))};
+const sit=(o,t)=>{if(o.st=='Completada')return['Completada','done'];if(ost(o)>t)return['Por iniciar','wait'];return ef(o)<esp(o,t)-10?['Atrasada','late']:['En tiempo','ok']};
+let GS=today().slice(0,8)+'01',GE=iso(new Date(+today().slice(0,4),+today().slice(5,7),0));
 /* Órdenes */
 function editOT(id){if(id&&!EO())return toast('Tu rol es de solo consulta');const o=id?db.ot.find(x=>x.id==id):{tipo:'Preventivo',st:'Pendiente de material',prio:'Media'};
  modal(id?'Editar '+o.folio:'Nueva orden de trabajo',[
@@ -103,18 +141,20 @@ function editOT(id){if(id&&!EO())return toast('Tu rol es de solo consulta');cons
  {k:'eq',l:'Equipo',t:'select',o:[]},{k:'tech',l:'Técnico',t:'select',o:db.tech.filter(t=>t.act!='Inactivo'||t.id==o.tech).map(t=>[t.id,t.n]),blank:'— Sin asignar —'},
  {k:'prio',l:'Prioridad',t:'select',o:PR},{k:'st',l:'Estado',t:'select',o:ST},
  {k:'req',l:'Requisición (No.)'},{k:'oc',l:'Orden de compra (No.)'},
- {k:'fprog',l:'Fecha programada',t:'date'},{k:'fcierre',l:'Fecha de cierre',t:'date'},
+ {k:'fini',l:'Fecha de inicio',t:'date'},{k:'fprog',l:'Fecha fin programada',t:'date'},{k:'fcierre',l:'Fecha de cierre',t:'date'},...(AD()?[{k:'avance',l:'Avance % (solo admin)',t:'number',a:'min="0" max="100" step="5"'}]:[]),
  {k:'desc',l:'Descripción del trabajo',t:'textarea',w:1,r:1}],o,v=>{
+  if(v.fini&&v.fprog&&v.fini>v.fprog){toast('La fecha de inicio no puede ser posterior a la fecha fin');return false}
+  if(AD()){if(v.avance===''||v.avance==null)v.avance=0;const a=Number(v.avance);if(isNaN(a)||a<0||a>100){toast('El avance debe estar entre 0 y 100');return false}v.avance=Math.round(a);if(a==100&&v.st!='Cancelada')v.st='Completada'}
   if(v.st=='Completada'&&!v.fcierre)v.fcierre=today();
-  if(v.fprog&&v.st=='Pendiente de material')v.st='Programada';
+  if((v.fprog||v.fini)&&v.st=='Pendiente de material')v.st='Programada';
   return commit('ot',id,o,id?v:Object.assign(v,{fcre:today()}))})}
 function vO(){const t=today(),rows=db.ot.filter(o=>filt(o,'o')).sort((a,b)=>b.folio.localeCompare(a.folio));
  const ab=db.ot.filter(o=>o.st!='Completada'&&o.st!='Cancelada');
  const sx=[['Abiertas',ab.length],['Sin material',db.ot.filter(o=>o.st=='Pendiente de material').length],['Vencidas',ab.filter(o=>o.fprog&&o.fprog<t).length],['Completadas',db.ot.filter(o=>o.st=='Completada').length]];
  return `<div class="st">${sx.map(s=>`<div><b>${s[1]}</b><span>${s[0]}</span></div>`).join('')}</div>`+
- bar('o',['q','tipo','site','st','tech','d1','d2'],`<button class="b2" onclick="FL.o={};render()">Limpiar</button><button class="b2" onclick="expX()">⬇ Excel</button><button class="b2" onclick="expP()">⬇ PDF</button>${AC()?'<button class="b1" onclick="editOT()">+ Nueva orden</button>':''}`)+
- `<div class="card"><table><tr><th>Folio</th><th>Tipo</th><th>Campo / Equipo</th><th>Técnico</th><th>Estado</th><th>Programada</th><th>Req.</th><th>OC</th><th></th></tr>`+
- (rows.map(o=>`<tr><td><b>${o.folio}</b><div class="mu">${esc(o.prio)}</div></td><td class="${o.tipo}">${o.tipo}</td><td>${esc(nm(db.sites,o.site))}<div class="mu">${esc(nm(db.eq,o.eq))}</div><div class="mu">${esc(o.desc)}</div></td><td>${esc(nm(db.tech,o.tech))}</td><td><span class="tg ${o.st}">${o.st}</span></td><td>${o.fprog||'<span class="mu">Sin fecha</span>'}${o.fprog&&o.fprog<t&&o.st!='Completada'&&o.st!='Cancelada'?' <b style="color:var(--r)">⚠</b>':''}</td><td>${esc(o.req)||'—'}</td><td>${esc(o.oc)||'—'}</td><td style="white-space:nowrap">${EO()?`<button class="ic" onclick="editOT('${o.id}')">Editar</button>`:''}${delBtn('ot',o.id)}</td></tr>`).join('')||`<tr><td colspan="9" class="mu">Sin órdenes con esos filtros.</td></tr>`)+`</table></div>`}
+ bar('o',['q','tipo','site','st','tech','prio','d1','d2'],`<button class="b2" onclick="FL.o={};render()">Limpiar</button><button class="b2" onclick="expX()">⬇ Excel</button><button class="b2" onclick="expP()">⬇ PDF</button>${AC()?'<button class="b1" onclick="editOT()">+ Nueva orden</button>':''}`)+
+ `<div class="card"><table><tr><th>Folio</th><th>Tipo</th><th>Campo / Equipo</th><th>Técnico</th><th>Estado</th><th>Programación / avance</th><th>Req.</th><th>OC</th><th></th></tr>`+
+ (rows.map(o=>`<tr><td><b>${o.folio}</b><div class="mu">${esc(o.prio)}</div></td><td class="${o.tipo}">${o.tipo}</td><td>${esc(nm(db.sites,o.site))}<div class="mu">${esc(nm(db.eq,o.eq))}</div><div class="mu">${esc(o.desc)}</div></td><td>${esc(nm(db.tech,o.tech))}</td><td><span class="tg ${o.st}">${o.st}</span></td><td>${ost(o)?(o.fini&&o.fprog&&o.fini!=o.fprog?o.fini+' → '+o.fprog:ost(o)):'<span class="mu">Sin fecha</span>'}${o.fprog&&o.fprog<t&&o.st!='Completada'&&o.st!='Cancelada'?' <b style="color:var(--r)">⚠</b>':''}<div class="mu">Avance ${ef(o)}%</div></td><td>${esc(o.req)||'—'}</td><td>${esc(o.oc)||'—'}</td><td style="white-space:nowrap">${EO()?`<button class="ic" onclick="editOT('${o.id}')">Editar</button>`:''}${delBtn('ot',o.id)}</td></tr>`).join('')||`<tr><td colspan="9" class="mu">Sin órdenes con esos filtros.</td></tr>`)+`</table></div>`}
 /* Equipos */
 function editEq(id){const o=id?db.eq.find(x=>x.id==id):{tipo:'Motor'};
  modal(id?'Editar equipo':'Nuevo equipo',[{k:'n',l:'Nombre / TAG',r:1},{k:'tipo',l:'Tipo',t:'select',o:TIPOS},{k:'site',l:'Campo',t:'select',o:db.sites.map(s=>[s.id,s.n]),blank:'Selecciona…',r:1},{k:'nota',l:'Ubicación / potencia / notas'}],o,v=>{
@@ -137,38 +177,112 @@ function vP(){const rows=db.tech.map(t=>{const os=db.ot.filter(o=>o.tech==t.id&&
  return bar('p',['tipo','site','tech','d1','d2'],`<button class="b2" onclick="FL.p={};render()">Limpiar</button>`)+`<p class="mu">Calificación = 60% órdenes completadas + 40% completadas a tiempo (cierre ≤ fecha programada). El periodo usa la fecha programada (o de creación si no tiene).</p>
  <div class="card"><table><tr><th>Técnico</th><th>Asignadas</th><th>Completadas</th><th>Pendientes</th><th>% cumplimiento</th><th>% a tiempo</th><th>Días prom. cierre</th><th>Calificación</th></tr>`+
  (rows.map(r=>`<tr><td><b>${esc(r.t.n)}</b><div class="mu">${esc(r.t.esp)}</div></td><td>${r.a}</td><td>${r.c}</td><td>${r.p}</td><td>${r.cump.toFixed(0)}%</td><td>${r.tiem==null?'—':r.tiem.toFixed(0)+'%'}</td><td>${r.dias==null?'—':r.dias.toFixed(1)}</td><td>${r.score==null?'—':`<b>${r.score}</b><div class="pb"><i style="width:${r.score}%"></i></div>`}</td></tr>`).join('')||`<tr><td colspan="8" class="mu">Agrega técnicos para ver su desempeño.</td></tr>`)+`</table></div>`}
-/* Cronograma */
-let CM=today().slice(0,7);
-function shift(n){const[y,m]=CM.split('-').map(Number),d=new Date(y,m-1+n,1);CM=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');render()}
-function vC(){const[y,m]=CM.split('-').map(Number),off=(new Date(y,m-1,1).getDay()+6)%7,dim=new Date(y,m,0).getDate(),t=today();
- const f=FL.c,m0=o=>o.st!='Cancelada'&&(!f.tipo||o.tipo==f.tipo)&&(!f.site||o.site==f.site)&&(!f.tech||o.tech==f.tech);
- const chip=o=>`<div class="chip ${o.tipo}" title="${esc(o.desc)}" onclick="editOT('${o.id}')">${o.folio} · ${esc(nm(db.eq,o.eq)!='—'?nm(db.eq,o.eq):nm(db.sites,o.site))}<div class="mu">${esc(nm(db.tech,o.tech))}</div></div>`;
- let cells=['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'].map(d=>`<div class="hd">${d}</div>`).join('')+'<div></div>'.repeat(off);
- for(let d=1;d<=dim;d++){const ds=CM+'-'+String(d).padStart(2,'0');cells+=`<div class="${ds==t?'td':''}"><span class="dn">${d}</span>${db.ot.filter(o=>o.fprog==ds&&m0(o)).map(chip).join('')}</div>`}
- const un=db.ot.filter(o=>!o.fprog&&o.st!='Completada'&&m0(o));
- return bar('c',['tipo','site','tech'],`<label>Mes<input type="month" value="${CM}" onchange="CM=this.value||CM;render()"></label><button class="b2" onclick="shift(-1)">◀</button><button class="b2" onclick="CM=today().slice(0,7);render()">Hoy</button><button class="b2" onclick="shift(1)">▶</button>`)+
- `<h3 style="margin:4px 0 8px;text-transform:capitalize">${new Date(y,m-1,1).toLocaleDateString('es-MX',{month:'long',year:'numeric'})}</h3><div class="card"><div class="cal">${cells}</div></div>
- <h3>Sin fecha asignada (esperando material)</h3><div class="card" style="padding:8px">${un.map(chip).join('')||'<span class="mu">No hay órdenes sin programar.</span>'}</div>
- <p class="mu">Azul = preventivo, naranja = correctivo. Haz clic en una orden para asignarle fecha o editarla.</p>`}
+/* Cronograma (Gantt) */
+function setR(k,v){if(!v)return;if(k=='s')GS=v;else GE=v;if(GE<GS){if(k=='s')GE=GS;else GS=GE}
+ if(dd(GS,GE)+1>MAXD){if(k=='s')GE=addD(GS,MAXD-1);else GS=addD(GE,-(MAXD-1));toast('El cronograma muestra hasta '+MAXD+' días a la vez')}render()}
+function moveR(k){const b=k==0?today():GS,y=+b.slice(0,4),m=+b.slice(5,7);GS=iso(new Date(y,m-1+k,1));GE=iso(new Date(y,m+k,0));render()}
+function gCalc(){const t=today(),n=dd(GS,GE)+1,all=db.ot.filter(o=>o.st!='Cancelada'&&filt(o,'c'));
+ const rows=all.filter(o=>ost(o)&&ost(o)<=GE&&oen(o)>=GS).sort((a,b)=>ost(a).localeCompare(ost(b))||a.folio.localeCompare(b.folio));
+ const un=all.filter(o=>!ost(o)&&o.st!='Completada');
+ const groups=db.sites.map(s=>({s,rows:rows.filter(o=>o.site==s.id)})).filter(g=>g.rows.length);
+ const wavg=(a,fn)=>{let w=0,x=0;a.forEach(o=>{const l=dd(ost(o),oen(o))+1;w+=l;x+=fn(o)*l});return w?Math.round(x/w):0};
+ return {t,n,rows,un,groups,wavg,real:wavg(rows,ef),esp:wavg(rows,o=>esp(o,t)),late:rows.filter(o=>sit(o,t)[1]=='late').length,done:rows.filter(o=>o.st=='Completada').length}}
+async function setAv(id,val){const o=db.ot.find(x=>x.id==id);if(!AD()||!o)return;const v=Math.max(0,Math.min(100,Math.round(Number(val)||0))),old={avance:o.avance,st:o.st,fcierre:o.fcierre};
+ o.avance=v;if(v==100){o.st='Completada';if(!o.fcierre)o.fcierre=today()}
+ const g=document.querySelector('.gt'),sl=g?g.scrollLeft:0,stp=g?g.scrollTop:0;
+ try{Object.assign(o,await put('ot',o,false))}catch(e){Object.assign(o,old);toast('No se guardó: '+(e.message||'error'))}
+ render();const g2=document.querySelector('.gt');if(g2){g2.scrollLeft=sl;g2.scrollTop=stp}const el=$('p-'+id);if(el)el.focus()}
+function vC(){const g=gCalc(),t=g.t,n=g.n;
+ const sx=`<div class="gs"><div><div class="k">Avance general (ponderado por duración)</div><div class="gv">${g.real}%</div><div class="gm"><i style="width:${g.real}%"></i><b style="left:calc(${g.esp}% - 1px)"></b></div><div class="gl2"><span>Realizado ${g.real}%</span><span>Esperado a hoy ${g.esp}%</span></div></div><div><div class="k">Órdenes en el periodo</div><div class="gv">${g.rows.length}</div></div><div><div class="k">Atrasadas</div><div class="gv" style="color:${g.late?'var(--r)':'inherit'}">${g.late}</div></div><div><div class="k">Completadas</div><div class="gv">${g.done}</div></div></div>`;
+ const ctrls=`<label>Desde<input type="date" value="${GS}" onchange="setR('s',this.value)"></label><label>Hasta<input type="date" value="${GE}" onchange="setR('e',this.value)"></label><button class="b2" onclick="moveR(-1)">◀ Mes</button><button class="b2" onclick="moveR(0)">Este mes</button><button class="b2" onclick="moveR(1)">Mes ▶</button><button class="b2" onclick="FL.c={};render()">Limpiar</button><button class="b2" onclick="expGP()">⬇ PDF</button><button class="b2" onclick="expGX()">⬇ Excel</button>`;
+ const leg=`<div class="gleg"><span><i style="background:var(--ps)"></i>Programado preventivo</span><span><i style="background:var(--p)"></i>Realizado</span><span><i style="background:var(--cs)"></i>Programado correctivo</span><span><i style="background:var(--o)"></i>Realizado</span><span><i style="background:var(--mk);width:3px"></i>Avance esperado a hoy</span></div>`;
+ let wk='',mon='',dys='';const segs=[];
+ for(let i=0;i<n;i++){const ds=addD(GS,i),dt=pd(ds),w=dt.getDay(),we=w==0||w==6;if(we)wk+=`<div class="gw" style="left:calc(var(--dw)*${i})"></div>`;
+  if(!segs.length||segs[segs.length-1].m!=dt.getMonth())segs.push({m:dt.getMonth(),y:dt.getFullYear(),n:0});segs[segs.length-1].n++;
+  dys+=`<div class="${we?'we ':''}${ds==t?'td':''}">${DL[w]}<b>${dt.getDate()}</b></div>`}
+ segs.forEach(x=>{mon+=`<span style="width:calc(var(--dw)*${x.n})">${x.n>=4?MES[x.m]+' '+x.y:''}</span>`});
+ let h=`<div class="gi" style="--n:${n}"><div class="gh"><div class="gr"><div class="gl"><span>Orden / equipo</span><span>% avance</span></div><div class="gk" style="background:none"><div class="gmon">${mon}</div><div class="gdy">${dys}</div></div></div></div>`;
+ g.groups.forEach(gr=>{h+=`<div class="gr gg"><div class="gl"><span>${esc(gr.s.n)}</span><span>${g.wavg(gr.rows,ef)}%</span></div><div class="gk"></div></div>`;
+  gr.rows.forEach(o=>{const s=dd(GS,ost(o)),len=dd(ost(o),oen(o))+1,e=s+len,st=sit(o,t),x=esp(o,t),p=ef(o);
+   const ctl=AD()?`<input id="p-${o.id}" type="number" min="0" max="100" step="5" value="${p}" ${o.st=='Completada'?'disabled title="Una orden completada vale 100%"':''} aria-label="Avance de ${o.folio}" onchange="setAv('${o.id}',this.value)">`:`<span class="ro">${p}%</span>`;
+   const nmq=nm(db.eq,o.eq)!='—'?nm(db.eq,o.eq):gr.s.n;
+   h+=`<div class="gr"><div class="gl"><div style="min-width:0"><div class="geq" title="${esc(nmq)}">${esc(nmq)}</div><div class="gsub"><b>${o.folio}</b> · ${esc(nm(db.tech,o.tech))}</div></div><div class="gpc">${ctl}<span class="gc ${st[1]}">${st[0]}</span></div></div>`+
+   `<div class="gk">${wk}<div class="gb ${o.tipo}" ${EO()?`onclick="editOT('${o.id}')" style="cursor:pointer;`:'style="'}left:calc(var(--dw)*${s});width:calc(var(--dw)*${len})" title="${esc(o.folio+' · '+ost(o)+' a '+oen(o)+' · esperado '+x+'%')}"><div class="f" style="width:${p}%"></div>${ost(o)<=t?`<div class="x" style="left:calc(${x}% - 1px)"></div>`:''}</div><div class="gtx" style="left:min(calc(var(--dw)*${e} + 4px),calc(var(--dw)*${n} - 38px))">${p}%</div></div></div>`})});
+ if(!g.rows.length)h+=`<div class="gr"><div class="gl" style="grid-template-columns:1fr">Sin órdenes con fechas en este periodo</div></div>`;
+ const ti=dd(GS,t);if(ti>=0&&ti<n)h+=`<div class="gtd" style="left:calc(var(--lw) + var(--dw)*${ti} + var(--dw)/2 - 1px)"></div>`;
+ h+='</div>';
+ const chip=o=>`<div class="tg" style="display:inline-block;margin:3px;cursor:pointer" ${EO()?`onclick="editOT('${o.id}')"`:''}><b>${o.folio}</b> ${esc(nm(db.eq,o.eq)!='—'?nm(db.eq,o.eq):nm(db.sites,o.site))}</div>`;
+ return bar('c',['tipo','site','tech','prio'],ctrls)+sx+leg+`<div class="gt" tabindex="0" aria-label="Diagrama de Gantt">${h}</div>
+ <h3>Sin fecha asignada (esperando material)</h3><div class="card" style="padding:8px">${g.un.map(chip).join('')||'<span class="mu">No hay órdenes sin programar.</span>'}</div>
+ <p class="mu">Azul = preventivo, naranja = correctivo. La parte oscura es lo realizado; la marca negra, lo que debería llevar a hoy. ${AD()?'Cambia el porcentaje en la casilla de cada orden.':'Solo el admin puede cambiar el porcentaje.'} Define inicio y fin en cada orden (Editar).</p>`}
 /* Campos */
 function editS(id){const o=id?db.sites.find(x=>x.id==id):{};modal(id?'Renombrar campo':'Nuevo campo',[{k:'n',l:'Nombre del campo',r:1}],o,v=>commit('sites',id,o,{n:v.n}))}
 function vS(){return `<div class="bar">${AD()?'<button class="b1" onclick="editS()">+ Nuevo campo</button>':''}</div><div class="card"><table style="min-width:420px"><tr><th>Campo</th><th>Equipos</th><th>Órdenes</th><th></th></tr>`+db.sites.map(s=>`<tr><td><b>${esc(s.n)}</b></td><td>${db.eq.filter(e=>e.site==s.id).length}</td><td>${db.ot.filter(o=>o.site==s.id).length}</td><td style="white-space:nowrap">${AD()?`<button class="ic" onclick="editS('${s.id}')">Renombrar</button>`:''}${delBtn('s',s.id)}</td></tr>`).join('')+`</table></div>`}
 /* Reportes */
 function exData(){const rows=db.ot.filter(o=>filt(o,'o')).sort((a,b)=>a.folio.localeCompare(b.folio));
- return {head:['Folio','Tipo','Campo','Equipo','Técnico','Prioridad','Estado','Fecha programada','Fecha cierre','Requisición','Orden de compra','Descripción'],
- body:rows.map(o=>[o.folio,o.tipo,nm(db.sites,o.site),nm(db.eq,o.eq),nm(db.tech,o.tech),o.prio||'',o.st,o.fprog||'',o.fcierre||'',o.req||'',o.oc||'',o.desc||''])}}
-function exFilt(){const f=FL.o,p=[];if(f.tipo)p.push('Tipo: '+f.tipo);if(f.site)p.push('Campo: '+nm(db.sites,f.site));if(f.st)p.push('Estado: '+f.st);if(f.tech)p.push('Técnico: '+nm(db.tech,f.tech));if(f.d1)p.push('Desde: '+f.d1);if(f.d2)p.push('Hasta: '+f.d2);if(f.q)p.push('Búsqueda: '+f.q);return p.join('  -  ')||'Sin filtros (todas las órdenes)'}
+ return {head:['Folio','Tipo','Campo','Equipo','Técnico','Prioridad','Estado','Avance %','Fecha inicio','Fecha fin','Fecha cierre','Requisición','Orden de compra','Descripción'],
+ body:rows.map(o=>[o.folio,o.tipo,nm(db.sites,o.site),nm(db.eq,o.eq),nm(db.tech,o.tech),o.prio||'',o.st,ef(o),o.fini||'',o.fprog||'',o.fcierre||'',o.req||'',o.oc||'',o.desc||''])}}
+function exFilt(){const f=FL.o,p=[];if(f.tipo)p.push('Tipo: '+f.tipo);if(f.site)p.push('Campo: '+nm(db.sites,f.site));if(f.st)p.push('Estado: '+f.st);if(f.tech)p.push('Técnico: '+nm(db.tech,f.tech));if(f.prio)p.push('Prioridad: '+f.prio);if(f.d1)p.push('Desde: '+f.d1);if(f.d2)p.push('Hasta: '+f.d2);if(f.q)p.push('Búsqueda: '+f.q);return p.join('  -  ')||'Sin filtros (todas las órdenes)'}
 function expX(){const d=exData();if(!d.body.length)return toast('No hay órdenes con esos filtros');if(!window.XLSX)return toast('No cargó la librería de Excel; revisa tu conexión');
- const ws=XLSX.utils.aoa_to_sheet([d.head].concat(d.body));ws['!cols']=[9,12,20,22,18,10,20,14,14,12,14,50].map(w=>({wch:w}));
+ const ws=XLSX.utils.aoa_to_sheet([d.head].concat(d.body));ws['!cols']=[9,12,20,22,18,10,20,9,12,12,12,12,14,50].map(w=>({wch:w}));
  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Órdenes');XLSX.writeFile(wb,'ordenes_mantenimiento_'+today()+'.xlsx')}
 function expP(){const d=exData();if(!d.body.length)return toast('No hay órdenes con esos filtros');if(!window.jspdf)return toast('No cargó la librería de PDF; revisa tu conexión');
  const doc=new window.jspdf.jsPDF({orientation:'landscape',unit:'pt',format:'letter'});
  try{doc.addImage($('logo').src,'PNG',30,20,46,46)}catch(e){}
  doc.setFontSize(15);doc.text('Grupo Molina - Órdenes de mantenimiento eléctrico',88,38);
  doc.setFontSize(9);doc.text('Generado: '+today()+'   -   '+d.body.length+' órdenes',88,52);doc.text(doc.splitTextToSize(exFilt(),680),88,64);
- doc.autoTable({head:[d.head],body:d.body,startY:82,margin:{left:30,right:30},styles:{fontSize:7,cellPadding:3},headStyles:{fillColor:[31,111,235]},columnStyles:{11:{cellWidth:150}}});
+ doc.autoTable({head:[d.head],body:d.body,startY:82,margin:{left:30,right:30},styles:{fontSize:7,cellPadding:3},headStyles:{fillColor:[31,111,235]},columnStyles:{13:{cellWidth:130}}});
  const n=doc.getNumberOfPages();for(let i=1;i<=n;i++){doc.setPage(i);doc.setFontSize(8);doc.text('Página '+i+' de '+n,720,590)}
  doc.save('ordenes_mantenimiento_'+today()+'.pdf')}
+function exFiltC(){const f=FL.c,p=[];if(f.tipo)p.push('Tipo: '+f.tipo);if(f.site)p.push('Campo: '+nm(db.sites,f.site));if(f.tech)p.push('Técnico: '+nm(db.tech,f.tech));if(f.prio)p.push('Prioridad: '+f.prio);return p.join('  -  ')||'Sin filtros'}
+function expGX(){const g=gCalc();if(!g.rows.length)return toast('No hay órdenes en ese periodo');if(!window.XLSX)return toast('No cargó la librería de Excel; revisa tu conexión');
+ const days=[];for(let i=0;i<g.n;i++)days.push(addD(GS,i));
+ const head=['Folio','Campo','Equipo','Técnico','Tipo','Prioridad','Estado','Inicio','Fin','Avance %','Esperado a hoy %','Situación'].concat(days.map(x=>(x==g.t?'▼':'')+x.slice(8)+'/'+x.slice(5,7)));
+ const body=[];g.groups.forEach(gr=>gr.rows.forEach(o=>{const s=ost(o),len=dd(s,oen(o))+1,dn=Math.round(ef(o)*len/100);
+  body.push([o.folio,gr.s.n,nm(db.eq,o.eq),nm(db.tech,o.tech),o.tipo,o.prio||'',o.st,s,oen(o),ef(o),esp(o,g.t),sit(o,g.t)[0]].concat(days.map(x=>{const k=dd(s,x);return k>=0&&k<len?(k<dn?'■':'□'):''})))}));
+ const aoa=[['Grupo Molina - Cronograma de mantenimiento eléctrico'],['Periodo: '+GS+' a '+GE+'   -   Generado: '+g.t],['Filtros: '+exFiltC()],['Avance general: '+g.real+'%   -   Esperado a hoy: '+g.esp+'%   -   Atrasadas: '+g.late+'   -   Completadas: '+g.done],['■ día realizado    □ día programado pendiente    ▼ hoy'],[],head].concat(body);
+ const ws=XLSX.utils.aoa_to_sheet(aoa);ws['!cols']=[9,20,24,18,11,10,20,11,11,9,9,11].map(w=>({wch:w})).concat(days.map(()=>({wch:6})));
+ const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Cronograma');
+ if(g.un.length){const w2=XLSX.utils.aoa_to_sheet([['Folio','Campo','Equipo','Estado','Descripción']].concat(g.un.map(o=>[o.folio,nm(db.sites,o.site),nm(db.eq,o.eq),o.st,o.desc||''])));w2['!cols']=[9,22,24,22,50].map(w=>({wch:w}));XLSX.utils.book_append_sheet(wb,w2,'Sin fecha')}
+ XLSX.writeFile(wb,'cronograma_mantenimiento_'+g.t+'.xlsx')}
+function expGP(){const g=gCalc();if(!g.rows.length)return toast('No hay órdenes en ese periodo');if(!window.jspdf)return toast('No cargó la librería de PDF; revisa tu conexión');
+ const doc=new window.jspdf.jsPDF({orientation:'landscape',unit:'pt',format:'letter'}),W=792,H=612,M=30,LW=225,TX=M+LW,TW=W-M-TX,dw=TW/g.n,RH=20;
+ const C={p:[31,111,235],ps:[207,224,251],c:[217,104,11],cs:[248,220,194],td:[217,45,32],wk:[238,241,244],hd:[233,237,241],ln:[223,228,234],tx:[28,37,48],mu:[102,113,127]};
+ const fill=c=>doc.setFillColor(c[0],c[1],c[2]),stroke=c=>doc.setDrawColor(c[0],c[1],c[2]),ink=c=>doc.setTextColor(c[0],c[1],c[2]);
+ const days=[];for(let i=0;i<g.n;i++)days.push(addD(GS,i));
+ let y=0,top=0;
+ const head=first=>{let y0;
+  if(first){try{doc.addImage($('logo').src,'PNG',M,16,40,40)}catch(e){}
+   ink(C.tx);doc.setFont('helvetica','bold');doc.setFontSize(14);doc.text('Grupo Molina - Cronograma de mantenimiento eléctrico',M+50,30);
+   doc.setFont('helvetica','normal');doc.setFontSize(8);ink(C.mu);doc.text(doc.splitTextToSize('Periodo: '+GS+' a '+GE+'   Generado: '+g.t+'   Filtros: '+exFiltC(),W-2*M-50)[0],M+50,43);
+   ink(C.tx);doc.setFont('helvetica','bold');doc.setFontSize(9);doc.text('Avance real '+g.real+'%   |   Esperado a hoy '+g.esp+'%   |   '+g.rows.length+' órdenes   |   '+g.late+' atrasadas   |   '+g.done+' completadas',M,66);
+   doc.setFont('helvetica','normal');doc.setFontSize(7);let lx=M;[[C.ps,'Programado preventivo'],[C.p,'Realizado preventivo'],[C.cs,'Programado correctivo'],[C.c,'Realizado correctivo'],[C.tx,'Esperado a hoy'],[C.td,'Hoy']].forEach(l=>{fill(l[0]);doc.rect(lx,73,l[1]=='Hoy'||l[1]=='Esperado a hoy'?2:14,7,'F');ink(C.mu);doc.text(l[1],lx+(l[1]=='Hoy'||l[1]=='Esperado a hoy'?5:18),79);lx+=doc.getTextWidth(l[1])+34});
+   y0=88}else{ink(C.mu);doc.setFont('helvetica','normal');doc.setFontSize(8);doc.text('Grupo Molina - Cronograma de mantenimiento eléctrico   ('+GS+' a '+GE+')',M,22);y0=30}
+  fill(C.hd);doc.rect(M,y0,LW+TW,22,'F');ink(C.mu);doc.setFont('helvetica','bold');doc.setFontSize(7);doc.text('Orden / equipo',M+3,y0+14);doc.text('% avance',TX-6,y0+14,{align:'right'});
+  let i0=0;for(let i=0;i<=g.n;i++){const m=i<g.n?pd(days[i]).getMonth():-1;if(i==g.n||(i>i0&&m!=pd(days[i0]).getMonth())){const wd=(i-i0)*dw;stroke(C.ln);doc.line(TX+i0*dw,y0,TX+i0*dw,y0+11);if(wd>45){ink(C.tx);doc.setFontSize(7);doc.text(MES[pd(days[i0]).getMonth()]+' '+pd(days[i0]).getFullYear(),TX+i0*dw+3,y0+8)}i0=i}}
+  const st=Math.max(1,Math.ceil(10/dw));doc.setFont('helvetica','normal');doc.setFontSize(6);ink(C.tx);days.forEach((x,i)=>{if(i%st==0)doc.text(String(+x.slice(8)),TX+i*dw+dw/2,y0+19,{align:'center'})});
+  return y0+22};
+ const endPage=()=>{const ti=dd(GS,g.t);if(ti>=0&&ti<g.n){stroke(C.td);doc.setLineWidth(.8);const x=TX+(ti+.5)*dw;doc.line(x,top,x,y);doc.setLineWidth(.2)}};
+ const wkShade=(yy,h)=>{days.forEach((x,i)=>{const w=pd(x).getDay();if(w==0||w==6){fill(C.wk);doc.rect(TX+i*dw,yy,dw,h,'F')}})};
+ y=head(true);top=y;
+ g.groups.forEach(gr=>{
+  if(y+13+RH>H-34){endPage();doc.addPage();y=head(false);top=y}
+  fill(C.hd);doc.rect(M,y,LW+TW,13,'F');ink(C.tx);doc.setFont('helvetica','bold');doc.setFontSize(8);doc.text(gr.s.n,M+3,y+9.5);doc.text(g.wavg(gr.rows,ef)+'%',TX-6,y+9.5,{align:'right'});y+=13;
+  gr.rows.forEach(o=>{
+   if(y+RH>H-34){endPage();doc.addPage();y=head(false);top=y}
+   wkShade(y,RH);stroke(C.ln);doc.line(M,y+RH,M+LW+TW,y+RH);
+   const eqn=nm(db.eq,o.eq)!='—'?nm(db.eq,o.eq):gr.s.n;
+   ink(C.tx);doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.text(doc.splitTextToSize(o.folio+'  '+eqn,LW-50)[0],M+3,y+9);
+   doc.setFont('helvetica','normal');doc.setFontSize(6.5);ink(C.mu);doc.text(doc.splitTextToSize(nm(db.tech,o.tech)+'  -  '+sit(o,g.t)[0],LW-50)[0],M+3,y+17);
+   ink(C.tx);doc.setFontSize(8);doc.text(ef(o)+'%',TX-6,y+13,{align:'right'});
+   const s=ost(o),len=dd(s,oen(o))+1,x0=TX+dd(GS,s)*dw,fw=len*dw,vx0=Math.max(x0,TX),vx1=Math.min(x0+fw,TX+TW),cp=o.tipo=='Correctivo'?C.c:C.p,cs=o.tipo=='Correctivo'?C.cs:C.ps;
+   if(vx1>vx0){fill(cs);doc.rect(vx0,y+5,vx1-vx0,10,'F');const px1=Math.min(x0+fw*ef(o)/100,TX+TW);if(px1>vx0){fill(cp);doc.rect(vx0,y+5,px1-vx0,10,'F')}
+    if(s<=g.t){const ex=x0+fw*esp(o,g.t)/100;if(ex>=vx0&&ex<=vx1){fill(C.tx);doc.rect(ex-.5,y+3,1,14,'F')}}
+    ink(C.tx);doc.setFontSize(6.5);doc.text(ef(o)+'%',Math.min(vx1+3,TX+TW-16),y+12.5)}
+   y+=RH})});
+ endPage();
+ const np=doc.getNumberOfPages();for(let i=1;i<=np;i++){doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(8);ink(C.mu);doc.text('Página '+i+' de '+np,W-M,H-14,{align:'right'})}
+ doc.save('cronograma_mantenimiento_'+g.t+'.pdf')}
 const TABS=[['o','Órdenes',vO],['c','Cronograma',vC],['e','Equipos',vE],['t','Técnicos',vT],['p','Desempeño',vP],['s','Campos',vS]];
 function render(){$('nav').innerHTML=TABS.map(t=>`<button class="${t[0]==TAB?'on':''}" onclick="TAB='${t[0]}';render()">${t[1]}</button>`).join('');$('app').innerHTML=TABS.find(t=>t[0]==TAB)[2]()}
 boot();
