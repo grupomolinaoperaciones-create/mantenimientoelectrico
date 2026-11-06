@@ -42,7 +42,7 @@ ST=['Pendiente de material','Programada','En proceso','Completada','Cancelada'],
 const SB_URL='https://ysomrydqmckakhchtzol.supabase.co',SB_KEY='sb_publishable_zoOiPMB-Mid6b7v1JZFNhw_p4Cx3v4I';
 const sb=supabase.createClient(SB_URL,SB_KEY);
 let db={sites:[],eq:[],tech:[],ot:[]},role=null,TAB='o',PD='',FL={o:{},p:{},c:{}};
-const AC=()=>role=='admin'||role=='campo',AD=()=>role=='admin',EO=()=>role=='admin'||role=='tecnico';
+const AC=()=>role=='admin'||role=='editor',AD=()=>role=='admin',EO=AC;
 const TB={ot:'work_orders',eq:'equipment',tech:'technicians',sites:'sites'},nul=x=>x===''||x==null?null:x;
 const MAP={sites:{n:'name'},eq:{n:'name',tipo:'type',site:'site_id',nota:'note'},tech:{n:'name',esp:'specialty',tel:'phone'},ot:{tipo:'type',site:'site_id',eq:'equipment_id',tech:'technician_id',prio:'priority',st:'status',req:'requisition',oc:'purchase_order',fprog:'scheduled_date',fcierre:'closed_date',fcre:'created_date',desc:'description'}};
 function toRow(t,o){const r={id:o.id};for(const k in MAP[t])r[MAP[t][k]]=nul(o[k]);if(t=='tech')r.active=o.act!='Inactivo';return r}
@@ -97,7 +97,7 @@ async function del(t,id){
  if(t=='s'&&(db.ot.some(o=>o.site==id)||db.eq.some(o=>o.site==id))){toast('El campo tiene equipos u órdenes; no se puede eliminar');render();return}
  const{data,error}=await sb.from(TB[key]).delete().eq('id',id).select();if(error||!data.length){toast(error?error.message:'Sin permiso para eliminar');return render()}db[key]=db[key].filter(x=>x.id!=id);render()}
 /* Órdenes */
-function editOT(id){if(id&&!EO())return toast('Tu rol solo permite agregar órdenes nuevas');const o=id?db.ot.find(x=>x.id==id):{tipo:'Preventivo',st:'Pendiente de material',prio:'Media'};
+function editOT(id){if(id&&!EO())return toast('Tu rol es de solo consulta');const o=id?db.ot.find(x=>x.id==id):{tipo:'Preventivo',st:'Pendiente de material',prio:'Media'};
  modal(id?'Editar '+o.folio:'Nueva orden de trabajo',[
  {k:'tipo',l:'Tipo',t:'select',o:['Preventivo','Correctivo']},{k:'site',l:'Campo',t:'select',o:db.sites.map(s=>[s.id,s.n]),blank:'Selecciona…',r:1},
  {k:'eq',l:'Equipo',t:'select',o:[]},{k:'tech',l:'Técnico',t:'select',o:db.tech.filter(t=>t.act!='Inactivo'||t.id==o.tech).map(t=>[t.id,t.n]),blank:'— Sin asignar —'},
